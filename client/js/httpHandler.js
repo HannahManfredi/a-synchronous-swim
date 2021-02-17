@@ -2,11 +2,18 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
-  //
-  // TODO: build the swim command fetcher here
-  //
+  setInterval(() => {
+    console.log('inside setInterval');
+    const ajaxGET = (serverUrl, cb) => {
+      $.get('http://127.0.0.1:3000', function( data ) {
+        console.log(data);
+        SwimTeam.move(data);
+      });
+    }
+    ajaxGET();
+  }, 1000);
 
-  /////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
   /////////////////////////////////////////////////////////////////////
@@ -17,11 +24,12 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url: serverUrl,
       cache: false,
       contentType: false,
       processData: false,
-      success: () => {
+      success: (data) => {
+        //do something with the data
         // reload the page
         window.location = window.location.href;
       }
@@ -30,7 +38,6 @@
 
   $('form').on('submit', function(e) {
     e.preventDefault();
-
     var form = $('form .file')[0];
     if (form.files.length === 0) {
       console.log('No file selected!');
@@ -47,3 +54,6 @@
   });
 
 })();
+
+//TASK:
+// Connect the client to the server. Using AJAX, periodically request a random swim command from the server. Confirm your swim team is moving around randomly.

@@ -6,7 +6,7 @@
     console.log('inside setInterval');
     const ajaxGET = (serverUrl, cb) => {
       $.get('http://127.0.0.1:3000', function( data ) {
-        console.log(data);
+        console.log('data: ', data);
         SwimTeam.move(data);
       });
     }

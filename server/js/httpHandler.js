@@ -14,10 +14,18 @@ module.exports.router = (req, res, next = ()=>{}) => {
     res.writeHead(200, headers);
     res.end(next);
   } else if (req.method === 'GET') {
+    //handling commands
+    console.log('req: ', req)
     if (messages.dequeue) {
       res.writeHead(200, headers);
       res.write(messages.dequeue.toString());
       res.end(next);
+    }
+    } else if (backgroundImageFile) {
+      //use multipartutils getFile func
+       //handling background img
+      // if data === !image
+        // return 404
     }
   }
 };

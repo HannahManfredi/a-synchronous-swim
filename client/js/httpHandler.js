@@ -10,12 +10,11 @@
       type: 'GET',
       url: serverUrl + '/background.jpg',
       success: (data) => {
-        $('body').addClass('background');
+        $('.pool').append(`'<img src=${data}>'`);
         window.location = window.location.href;
       }
     });
   };
-   //
 
     // $(document).ready(() => {
     //   console.log('doc ready');
@@ -23,7 +22,7 @@
     // });
 
 //////////////////////////////////////////////////////////////////
-  // The ajax file uplaoder is provided for your convenience!
+  // The a file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
   /////////////////////////////////////////////////////////////////////
 

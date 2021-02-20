@@ -2,16 +2,22 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
-  setInterval(() => {
-    console.log('inside setInterval');
-    const ajaxGET = (serverUrl, cb) => {
+    const ajaxGETSwimmers = (serverUrl, cb) => {
+      $.get('http://127.0.0.1:3000', function( data ) { SwimTeam.move(data); });
+    }
+    ajaxGETSwimmers();
+
+
+  //2nd ajax get request for image
+    const ajaxGETBackground = (serverUrl, cb) => {
       $.get('http://127.0.0.1:3000', function( data ) {
         console.log('data: ', data);
-        SwimTeam.move(data);
+        //ContentType = "image/jpeg";
+        // if data === image
+        // append image to html
       });
     }
-    ajaxGET();
-  }, 1000);
+    ajaxGETBackground();
 
 //////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
@@ -35,6 +41,7 @@
       }
     });
   };
+
 
   $('form').on('submit', function(e) {
     e.preventDefault();

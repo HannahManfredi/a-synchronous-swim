@@ -9,7 +9,6 @@ keypressHandler.initialize((message) => {
 
 const http = require('http');
 const server = http.createServer(httpHandler.router);
-//Theory: the request = terminal command (our input)
 
 const port = 3000;
 const ip = '127.0.0.1';

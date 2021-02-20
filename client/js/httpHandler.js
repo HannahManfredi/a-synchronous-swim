@@ -2,22 +2,25 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
-    const ajaxGETSwimmers = (serverUrl, cb) => {
-      $.get('http://127.0.0.1:3000', function( data ) { SwimTeam.move(data); });
-    }
-    ajaxGETSwimmers();
+  const ajaxGETSwimmers = (serverUrl, cb) => { $.get('http://127.0.0.1:3000', function( data ) { SwimTeam.move(data); }); }
+  ajaxGETSwimmers();
 
+  const ajaxGETBackground = () => {
+    $.ajax({
+      type: 'GET',
+      url: serverUrl + '/background.jpg',
+      success: (data) => {
+        $('body').addClass('background');
+        window.location = window.location.href;
+      }
+    });
+  };
+   //
 
-  //2nd ajax get request for image
-    const ajaxGETBackground = (serverUrl, cb) => {
-      $.get('http://127.0.0.1:3000', function( data ) {
-        console.log('data: ', data);
-        //ContentType = "image/jpeg";
-        // if data === image
-        // append image to html
-      });
-    }
-    ajaxGETBackground();
+    // $(document).ready(() => {
+    //   console.log('doc ready');
+    //   ajaxGETBackground();
+    // });
 
 //////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!

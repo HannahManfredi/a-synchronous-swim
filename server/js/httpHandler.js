@@ -31,8 +31,8 @@ module.exports.router = (req, res, next = ()=>{}) => {
           next();
         } else {
           res.writeHead(200, headers);
-          //do what with jpg data?
           res.write(data, 'binary');
+          res.end();
           next();
         }
       });
@@ -44,12 +44,16 @@ module.exports.router = (req, res, next = ()=>{}) => {
     }
   }
   if (req.method === 'POST') {
-    var str = '';
-    res.on('data', function (chunk) {
-      str += chunk;
+    let fileData = Buffer.alloc(0);
+    req.on('data', (chunk) => {
+      fileData = Buffer.concat([fileData, chunk]);
     });
-    res.on('end', function () {
-      console.log(str);
+    req.on('end', () => {
+      fs.writeFile(module.exports.backgroundImageFile, fileData, () => {
+        res.writeHead(201, headers);
+        res.end();
+        next();
+      });
     });
   }
 };

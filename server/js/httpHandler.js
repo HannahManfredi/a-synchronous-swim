@@ -6,42 +6,50 @@ const messages = require('./messageQueue.js');
 
 // Path for the background image ///////////////////////
 module.exports.backgroundImageFile = path.join('.', 'background.jpg');
+
+let messageQueue = null;
+module.exports.initialize = (queue) => {
+  messageQueue = queue;
+  console.log('messages queue:', messageQueue);
+};
 ////////////////////////////////////////////////////////
 
 module.exports.router = (req, res, next = ()=>{}) => {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
   if (req.method === 'OPTIONS') {
     res.writeHead(200, headers);
-    res.end(next);
+    res.end();
+    next();
   }
   if (req.method === 'GET') {
     if (req.url === '/background.jpg') {
-      fs.readFile(this.backgroundImageFile, (error, data) => {
+      console.log('in /background.jpg')
+      fs.readFile(module.exports.backgroundImageFile, (error, data) => {
         if (error) {
           res.writeHead(404, headers);
           res.end();
           next();
-        } else if (data) {
-          // console.log('img data from router: ', data.toString());
+        } else {
           res.writeHead(200, headers);
-          fs.createReadStream('/background.jpg').pipe(res);
-          // res.write(data);
-          res.end();
+          //do what with jpg data?
+          res.write(data, 'binary');
           next();
         }
       });
     }
-    if (messages.messages) {
+    if (req.url === '/') {
       res.writeHead(200, headers);
-      res.write(messages.dequeue.toString());
-      res.end();
+      res.end(messageQueue.dequeue());
       next();
     }
   }
-  // if (req.method === 'POST') {
-
-  //   .on('data')
-
-  //   .on('end')
-  // }
+  if (req.method === 'POST') {
+    var str = '';
+    res.on('data', function (chunk) {
+      str += chunk;
+    });
+    res.on('end', function () {
+      console.log(str);
+    });
+  }
 };

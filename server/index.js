@@ -8,6 +8,8 @@ keypressHandler.initialize((message) => {
 });
 
 const http = require('http');
+httpHandler.initialize(messages);
+
 const server = http.createServer(httpHandler.router);
 
 const port = 3000;

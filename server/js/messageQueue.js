@@ -5,9 +5,11 @@ module.exports.messages = messages;
 module.exports.enqueue = (message) => {
   console.log(`Enqueing message: ${message}`);
   messages.push(message);
+  console.log(messages);
 };
 
 module.exports.dequeue = () => {
   // returns undefined if messages array is empty
+  console.log('Dequeing message');
   return messages.shift();
 };
